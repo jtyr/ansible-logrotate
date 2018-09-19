@@ -1,0 +1,3 @@
+{{ ansible_managed | comment }}
+
+{{ item.value | list | logrotate_add_postfix | encode_nginx }}

@@ -1,0 +1,15 @@
+---
+
+# Package to be installed (explicit version can be specified here)
+logrotate_pkg: logrotate
+
+# Location of the logrotate.d directory
+logrotate_config_dir: /etc/logrotate.d
+
+# Content of the file in the logrotate.d directory (see README for more details)
+logrotate_config: {}
+
+# Permissions for the config files
+logrotate_owner: root
+logrotate_group: root
+logrotate_mode: "0644"

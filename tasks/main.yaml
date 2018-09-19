@@ -1,0 +1,18 @@
+---
+
+- name: Install package
+  package:
+    name: "{{ logrotate_pkg }}"
+  tags:
+    - logrotate_pkg
+
+- name: Create individual config files
+  template:
+    src: logrotate.conf.j2
+    dest: "{{ logrotate_config_dir }}/{{ item.key }}"
+    owner: "{{ logrotate_owner }}"
+    group: "{{ logrotate_group }}"
+    mode: "{{ logrotate_mode }}"
+  with_dict: "{{ logrotate_config }}"
+  tags:
+    - logrotate_config

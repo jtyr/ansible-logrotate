@@ -28,28 +28,35 @@ Examples
   vars:
     logrotate_config:
       # This is the file name in the logrotate.d directory
-      mylogs:
-        - /var/log/mylogs/*.log:
-            - size 10M
-            - missingok
-            - rotate 1
+      - file: mylogs
+        # Content of the file
+        content:
+          - /var/log/mylogs/*.log:
+              - size 10M
+              - missingok
+              - rotate 1
+        # Optionally specify file permissions
+        owner: root
+        group: www-data
+        mode: "0660"
       # If you want to modify the main config file, you can do it like this
-      ../logrotate.conf:
-        - weekly
-        - rotate 4
-        - create
-        - dateext
-        - include /etc/logrotate.d
-        - /var/log/wtmp:
-            - monthly
-            - create 0664 root utmp
-            - minsize 1M
-            - rotate 1
-        - /var/log/btmp:
-            - missingok
-            - monthly
-            - create 0600 root utmp
-            - rotate 1
+      - file: ../logrotate.conf
+        content:
+          - weekly
+          - rotate 4
+          - create
+          - dateext
+          - include /etc/logrotate.d
+          - /var/log/wtmp:
+              - monthly
+              - create 0664 root utmp
+              - minsize 1M
+              - rotate 1
+          - /var/log/btmp:
+              - missingok
+              - monthly
+              - create 0600 root utmp
+              - rotate 1
   roles:
     - logrotate
 ```
@@ -66,9 +73,9 @@ logrotate_pkg: logrotate
 logrotate_config_dir: /etc/logrotate.d
 
 # Content of the file in the logrotate.d directory (see README for more details)
-logrotate_config: {}
+logrotate_config: []
 
-# Permissions for the config files
+# Default permissions for the config files
 logrotate_owner: root
 logrotate_group: root
 logrotate_mode: "0644"

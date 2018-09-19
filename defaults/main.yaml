@@ -6,8 +6,8 @@ logrotate_pkg: logrotate
 # Location of the logrotate.d directory
 logrotate_config_dir: /etc/logrotate.d
 
-# Content of the file in the logrotate.d directory (see README for more details)
-logrotate_config: {}
+# Content of the files in the logrotate.d directory (see README for details)
+logrotate_config: []
 
 # Permissions for the config files
 logrotate_owner: root

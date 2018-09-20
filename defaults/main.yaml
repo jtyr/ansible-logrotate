@@ -13,3 +13,20 @@ logrotate_config: []
 logrotate_owner: root
 logrotate_group: root
 logrotate_mode: "0644"
+
+# Location of the original logrotate cronjob
+logrotate_cron_src: /etc/cron.daily/logrotate
+
+# Locations of the other cron directories
+logrotate_cron_hourly_dir: /etc/cron.hourly
+logrotate_cron_daily_dir: /etc/cron.daily
+logrotate_cron_weekly_dir: /etc/cron.weekly
+logrotate_cron_monthly_dir: /etc/cron.monthly
+logrotate_cron_dirs:
+  hourly: "{{ logrotate_cron_hourly_dir }}"
+  daily: "{{ logrotate_cron_daily_dir }}"
+  weekly: "{{ logrotate_cron_weekly_dir }}"
+  monthly: "{{ logrotate_cron_monthly_dir }}"
+
+# List of cron symlinks to create (see README for details)
+logrotate_cron_symlinks: []

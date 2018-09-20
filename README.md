@@ -57,6 +57,12 @@ Examples
               - monthly
               - create 0600 root utmp
               - rotate 1
+      # Optional: Make sure the logrotate cron job runs hourly
+      # (supported: hourly, daily, weekly, monthly)
+      syslog_ng_cron_links:
+        - hourly
+        # Prefixing it with exclamation mark will remove the symlink
+        - "!weekly"
   roles:
     - logrotate
 ```
@@ -79,6 +85,23 @@ logrotate_config: []
 logrotate_owner: root
 logrotate_group: root
 logrotate_mode: "0644"
+
+# Location of the original logrotate cronjob
+logrotate_cron_src: /etc/cron.daily/logrotate
+
+# Locations of the other cron directories
+logrotate_cron_hourly_dir: /etc/cron.hourly
+logrotate_cron_daily_dir: /etc/cron.daily
+logrotate_cron_weekly_dir: /etc/cron.weekly
+logrotate_cron_monthly_dir: /etc/cron.monthly
+logrotate_cron_dirs:
+  hourly: "{{ logrotate_cron_hourly_dir }}"
+  daily: "{{ logrotate_cron_daily_dir }}"
+  weekly: "{{ logrotate_cron_weekly_dir }}"
+  monthly: "{{ logrotate_cron_monthly_dir }}"
+
+# List of cron symlinks to create (see README for details)
+logrotate_cron_symlinks: []
 ```
 
 

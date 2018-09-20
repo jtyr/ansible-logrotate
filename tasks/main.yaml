@@ -16,3 +16,15 @@
   loop: "{{ logrotate_config }}"
   tags:
     - logrotate_config
+
+- name: Symlink the main logrotate cron job to other cron directories
+  file:
+    path: "{{ logrotate_cron_dirs[item[1:] if item.startswith('!') else item] }}/{{ logrotate_cron_src | basename }}"
+    src: "{{ logrotate_cron_src }}"
+    state: "{{ 'absent' if item.startswith('!') else 'link' }}"
+  when: >
+    (item[1:] if item.startswith('!') else item) in logrotate_cron_dirs and
+    logrotate_cron_dirs[item[1:] if item.startswith('!') else item] != logrotate_cron_src
+  loop: "{{ logrotate_cron_symlinks }}"
+  tags:
+    - logrotate_cron
